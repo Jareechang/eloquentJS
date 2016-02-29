@@ -1,6 +1,6 @@
 function sum(arr){
     var total = 0;
-    // New es6 for..of
+    // New es6 for...of
     for(var num of arr){
         total += num;
     }
@@ -10,7 +10,7 @@ function sum(arr){
 function range(start, end, step){
     var arr = [];
     var num = start;
-    //Check step 
+    // Check step 
     if(!step){
         step = 1;
     }
@@ -18,7 +18,7 @@ function range(start, end, step){
     if(start > end){
         [start, end] = [end, start];
     }
-    //counts elements
+    // Counts elements
     for(var i = start; i <= end; i++){
         arr.push(num);
         num += step;
