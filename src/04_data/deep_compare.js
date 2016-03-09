@@ -2,25 +2,27 @@ function isObjectAndNotNull(obj){
     return typeof obj  == "object" && typeof obj != null
 }
 
+function keyExist(left,right){
+    return !!left && !!right;
+}
+
+function matchKey(left,right) {
+    return left === right;
+}
+
 function deepEqual(left, right){
-    // compare key
     var keys = [];
     if(isObjectAndNotNull(left)) {
         keys = keys.concat(Object.keys(left));
     }
-    // loop through keys for comparison 
     for(let key of keys){
-        // Key exists? 
-        var keysExistAndMatching = !!left[key] && !!right[key];
-        if(isObjectAndNotNull(left[key])){
-            return deepEqual(left[key], right[key]);
+        var leftKey = left[key];
+        var rightKey = right[key];
+        if(isObjectAndNotNull(leftKey)){
+            return deepEqual(leftKey, rightKey);
         }
-        if(keysExistAndMatching){
-            // compare value     
-            return left[key] === right[key];
-        }else {
-            return false;
-        }
+        return keyExist(leftKey, rightKey) ? 
+                matchKey(leftKey,rightKey) : false; 
     }
 }
 
