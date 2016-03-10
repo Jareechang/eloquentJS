@@ -19,6 +19,6 @@ function greatThan(n) {
 }
 
 var greaterThan10 = greatThan(10); 
-console.log(greaterThan10(11));
+console.log(greaterThan10(11)); // true
 
 ```
