@@ -43,6 +43,23 @@ noisy(Boolean)(0);
 
 ```
 
+**Updated** 
+
+##### updated example # 2: making it more dynamic with apply
+
+If the previous functino (noisy) was used, it would only take the first argument
+when passed with multiple arguments. In this case, `apply` method is quite suitable.
+
+``` javascript
+function transparentWrapper(f){ 
+    return function() {
+        return f.apply(null, arguments);
+    }
+}
+
+```
+
+
 #### 3. Function that provide new type control flow 
 
 ``` javascript
