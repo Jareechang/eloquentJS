@@ -37,4 +37,8 @@ function noisy(f) {
      }
 }
 
+noisy(Boolean)(0); 
+// calling with 0
+// calling with 0 - got false
+
 ```
