@@ -29,12 +29,12 @@ console.log(greaterThan10(11)); // true
 ```  javascript
 
 function noisy(f) {
- return function(arg){ 
-   console.log(`calling with ${arg}`);
-   var val = f(arg);
-   console.log(`called with ${arg} - got ${val}`);
-   return val;
- }
+    return function(arg){ 
+        console.log(`calling with ${arg}`);
+        var val = f(arg);
+        console.log(`called with ${arg} - got ${val}`);
+        return val;
+     }
 }
 
 ```
