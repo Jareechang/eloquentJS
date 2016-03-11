@@ -2,7 +2,15 @@ import ANCESTRY_FILE from './ancestry.js';
 
 var ancestry = JSON.parse(ANCESTRY_FILE);
 
-// Filter
+/**
+ * @method filter 
+ * filters a given array as first arg and a predicate test
+ * as second argument
+ *
+ * @param {Array} [arr] argument for the function
+ * @param {Function} test callback predicate function
+ * 
+ **/
 
 let filter = (arr,test) => {
    var passed = [];
@@ -20,7 +28,8 @@ let filter = (arr,test) => {
  *
  *   @param {Number} min
  *   @param {Number} max
- *   @return {Function} 
+ *   @return {Function} a function that determines if person is between 
+ *   given born age range
 */
 
 let filterByDate = (min,max) => {
