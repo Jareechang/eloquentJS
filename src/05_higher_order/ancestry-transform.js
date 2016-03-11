@@ -38,4 +38,3 @@ var ageGreaterThan = (age) => {
 var overNinety = ancestry.filter(ageGreaterThan(90));
 
 console.log(map(overNinety, person => person.name));
-
