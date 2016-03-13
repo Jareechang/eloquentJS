@@ -51,3 +51,25 @@ var ph = byName["Philibert Haverbeke"];
 */
 
 console.log(reduceAncestor(ph, sharedDNA, 0) / 4); 
+
+/**
+ *   find percentage of a person's known ancestors who lived past 70
+ * */
+
+var countAncestors = function(person,test) {
+    let combine = (current, mother, father) => {
+        let thisOneCounts = current != person && test(current);
+        return mother + father + (thisOneCounts ? 1 : 0);
+    }
+    return reduceAncestor(person, combine, 0);
+}
+
+var longLivingPercentage = function(person) {
+    let all = countAncestors(person, () => true);
+    let longLiving = countAncestors(person,p => (p.died - p.born) >= 70);
+    return longLiving/all;
+}
+
+console.log(longLivingPercentage(byName["Emile Haverbeke"]));
+
+
