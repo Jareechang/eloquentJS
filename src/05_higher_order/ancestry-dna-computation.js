@@ -45,4 +45,9 @@ var sharedDNA = function(person, mother, father) {
 
 var ph = byName["Philibert Haverbeke"];
 
+/**
+ * Division by 4 - gets the DNA relation between author and "Pauwel van Haverbeke"
+ * Given Philbert is authors grand-father (1/4 DNA relation away)
+*/
+
 console.log(reduceAncestor(ph, sharedDNA, 0) / 4); 
