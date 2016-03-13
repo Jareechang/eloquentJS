@@ -12,8 +12,8 @@
                                 
 **Solution statement**: 
 
- _Given a person, a function combines values from two parents from of given person, and a given default value, reduceAncestor condenses
-a value from family tree _
+ *Given a person, a function combines values from two parents from of given person, and a given default value, reduceAncestor condenses
+a value from family tree* 
 
 # Algorithm 
 
