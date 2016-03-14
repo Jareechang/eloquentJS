@@ -16,7 +16,12 @@ var ancestry = JSON.parse(ANCESTRY_FILE);
  *  
  */
 
-var average = (array) => {
+//var average = (array) => {
+    //let plus = (a,b) => a + b;
+    //return array.reduce(plus) / array.length;
+//}
+
+var average = function(array) {
     let plus = (a,b) => a + b;
     return array.reduce(plus) / array.length;
 }
@@ -29,8 +34,10 @@ var female = (p) => p.sex == "f";
 
 // Average age of all the males
 
-console.log(average(ancestry.filter(male).map(age)));
+//console.log(average(ancestry.filter(male).map(age)));
 
 // Average age of all the females 
 
-console.log(average(ancestry.filter(female).map(age)));
+//console.log(average(ancestry.filter(female).map(age)));
+
+export {average};

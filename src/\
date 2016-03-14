@@ -1,0 +1,47 @@
+import ANCESTRY_FILE from './ancestry.js';
+
+var ancestry = JSON.parse(ANCESTRY_FILE);
+
+/**
+ *  compute the average age difference between mothers and childrens
+ */
+
+var byName = {};
+
+ancestry.forEach(p => byName[p.name] = p);
+
+// calcuate age
+
+var calculateAge = function(p) {
+    return !!p ? (p.died - p.born) : null;
+}
+
+var hasMother = p => !! p.mother;
+var personWithMother = ancestry => ancestry.filter(hasMother);
+
+var total = personWithMother.length;
+
+console.log(personWithMother(ancestry));
+
+//var total = function(ancestry) {
+    //return ancestry.reduce(p => p.mother ? 1 : 0);
+//}
+
+//// calculate the age differences with reduce
+
+//var motherChildAgeDiff = function(ancestry) {
+    //let ageDiff = 
+
+    //return ageDiff / total(ancestry);
+    ////let ageDiff = ancestry.map((p) => {
+       ////return calculateAge(byName[p.mother]) - calculateAge(p);
+    ////})
+    ////return average(ageDiff.map(a => Math.abs(a)));
+//}
+//console.log(motherChildAgeDiff(ancestry));
+// 1. get Mother object 
+// 2. get Child object
+// 3. calculate age difference 
+// 4. average the ages
+
+
