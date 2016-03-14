@@ -8,7 +8,6 @@ var byCentury = {};
 
 var isArray = (arr) => arr instanceof Array;
 var insertValue = (k,v) => byCentury[k].push(v);
-var getLifeExpectancy = arr => arr.map(p => p.died - p.born);
 
 var groupBy = function(pluck = null,p) {
     let century = Math.ceil(p.died/100);
