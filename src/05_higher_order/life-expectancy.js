@@ -1,11 +1,8 @@
 import ANCESTRY_FILE from './ancestry.js';
-
 import {average} from './ancestry-composability.js';
 
 var ancestry = JSON.parse(ANCESTRY_FILE);
-
 var byCentury = {};
-
 var isArray = (arr) => arr instanceof Array;
 var insertValue = (k,v) => byCentury[k].push(v);
 
@@ -20,7 +17,6 @@ var groupBy = function(pluck = null,p) {
 }
 
 // Bind an optional callback to pluck the life expectancy in groupBy function
-
 ancestry.forEach(groupBy.bind(null, p => p.died - p.born));
 
 var averageAgebyCentury = Object.keys(byCentury)
