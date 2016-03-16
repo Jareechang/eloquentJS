@@ -123,3 +123,118 @@ a prototype (*retreived via Object.getPrototypeOf*).
 The prototype of a constructor is *Function.prototype* as constructors are functions.
 its prototype property will be prototype of instances created through it but not its own
 prototype.
+
+## Overriding derived properties
+
+Properties gets overridden if a property is added to a specific object, and the same
+property with the same name exist in the **prototype**. 
+
+this type of behaviour is also used to give standard function and array prototypes a different
+*toString* method than the basic object prototype.
+
+``` javascript
+console.log(Array.prototype.toString == Object.prototype.toString); 
+// => false
+
+console.log([1,2].toString());
+// => "1,2"
+```
+
+**Array toString** - results in something similar to calling *.join("")*
+
+**Object.prototype.toString** (with an array) - produces a different string
+
+*the function doesn't know about arrays, so it simply puts the word "object" and 
+the name of the type between square brackets*
+
+``` javascript
+console.log(Object.prototype.toString.call([1,2])); 
+// => [object Array] 
+```
+## Prototype Interference
+
+
+a prototype is useful to be able to add new properties and methods to all objects based on it.
+However, there are situations where it causes problems.
+
+``` javascript
+var map = {};
+function storePhi(event, phi) {
+    map[event] = phi;
+}
+
+storePhi("Pizza", 0.069);
+storePhi("Touched tree", -0.081);
+```
+
+**Iterating over the phi values in object:** 
+
+``` javascript
+Object.prototype.nonsense = "hi";
+for(var name in map) {
+    console.log(name);
+}
+// => pizza 
+// => touched tree 
+// => nonsense 
+
+console.log("nonsense" in map);
+// => true 
+
+console.log("toString" in map);
+// => true 
+```
+
+**NOTE:** 
+
+*toString* did not show up in the enumeration because Javascript distinguishes between 
+*enumerable* and *non-enumerable* properties.
+
+**All properties we create by assigning to them are enumerable** while the **standard** properties
+in *Object.prototype* are all nonenumerable (hence not showing up in for/in loop)
+
+
+##### Defining non-enumerable properties
+
+we can define *non-enumerable* properties by using *Object.defineProperty* function, which 
+allows us to control the type of property we are creating.
+
+``` javascript
+Object.defineProperty(Object.prototype, "hiddenNonsense",
+                      {enumerable: false, value: "hi"});
+
+for(var name in map) {
+    console.log(name);
+}
+// => pizza 
+// => touched tree 
+
+console.log(map.hiddenNonsense);
+```
+
+**Now, the property is there, and will not show up in the for/in loop**
+
+However, we still have problems with regular *in* operator claiming that 
+*Object.prototype* properties exists in our object.
+
+To get around this, we can use the Object's *hasOwnProperty* method.
+
+
+``` javascript
+console.log(map.hasOwnProperty("toString"));
+// => false 
+```
+
+This method tells us whether or not the object *itself* has the property without
+looking for the property in the **prototype**.
+
+**Looking for properties within the object itself:**
+
+``` javascript
+for(var name in map) {
+    if(map.hasOwnProperty(name)) {
+        // Do something
+    }
+}
+```
+
