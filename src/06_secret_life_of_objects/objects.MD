@@ -237,4 +237,31 @@ for(var name in map) {
     }
 }
 ```
+## Prototype-less Objects 
+
+if you pass `null` as the prototype into the  *Object.create* method then you create
+a fresh object with no prototype.
+
+``` javascript
+var map = Object.create(null);
+map["pizza"] = 0.069;
+console.log("toString" in map);
+// => false 
+
+console.log("pizza" in map);
+// => true 
+```
+
+In this case, as we have seen previously in the *for/in* loop, 
+we do not need to worry about prototype properties in our object.
+
+## Polymorphism
+
+Some of the standard prototypes define their own version of *toString*
+so they can create a string that contains more useful information than 
+"[object object]".
+
+The code is written to work with objects that have a certain interface.
+(in this case, toString method)
+
 
