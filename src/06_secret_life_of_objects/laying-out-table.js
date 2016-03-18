@@ -90,6 +90,19 @@ var rows = [];
 for(var i = 0; i < 5; i++){
    var row =[];
    for(var j = 0; j < 5; j++){  
+       /**
+        *  Push TextCell data into @param row {Array}  
+        *
+        *  ex  [TextCell]
+        *
+        *  @param TextCell {Object} > {Array} > {String} - Object who is an Array containg String  
+        *
+        *   ex TextCell > { text: ["##"] } 
+        *
+        *  @param rows {Array} - Array holding array of TextCells
+        *
+        *  ex [ [TextCell], ... [TextCell] ]
+        */
        if((j+i) % 2 == 0){
            row.push(new TextCell("##"));
        }else {
