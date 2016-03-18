@@ -23,7 +23,6 @@ function rowHeights(rows) {
 function colWidths(rows) {
     return rows[0].map( (_, i) => {
         return rows.reduce((max,row) => {
-            console.log(`max: ${max}, row: ${row}`);
             return Math.max(max,row[i].minWidth());
         },0)
     })
@@ -78,8 +77,7 @@ TextCell.prototype.draw = function(width, height) {
    var result =[];
    for(var i =0; i<height; i++) {
        var line = this.text[i] || "";
-       result.push(line + repeat("", width - line.length));
-       console.log(result);
+       result.push(line + repeat(" ", width - line.length));
    }
    return result;
 }
@@ -112,4 +110,42 @@ for(var i = 0; i < 5; i++){
    rows.push(row);
 }
 
+// Basic table
 console.log(drawTable(rows));
+
+
+/*  Mountains example*/
+
+import MOUNTAINS from './mountains.js';
+
+function UnderLineCell(inner) {
+    this.inner = inner;
+}
+
+UnderLineCell.prototype.minWidth = function() {
+    return this.inner.minWidth();
+}
+
+UnderLineCell.prototype.minHeight = function() {
+    return this.inner.minHeight() + 1;
+}
+
+UnderLineCell.prototype.draw = function(width,height) {
+    return this.inner.draw(width, height - 1)
+        .concat([repeat("-", width)])
+}
+
+function dataTable(data) {
+    var keys = Object.keys(data[0]);
+    var headers = keys.map(function(name){
+        return new UnderLineCell(new TextCell(name));
+    });
+    var body = data.map(function(row){
+        return keys.map(function(name){
+            return new TextCell(String(row[name]));
+        })
+    })
+    return [headers].concat(body);
+}
+
+console.log(drawTable(dataTable(MOUNTAINS)));
