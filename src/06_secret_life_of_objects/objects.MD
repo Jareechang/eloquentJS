@@ -384,9 +384,7 @@ headers: [
                 "name"
 
             ]
-
         }
-
     },
     {
         "inner": {
@@ -394,19 +392,14 @@ headers: [
                 "height"
 
             ]
-
         }
-
     },
     {
         "inner": {
             "text": [
                 "country"
-
             ]
-
         }
-
     }
 ]
 ```
