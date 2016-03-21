@@ -369,12 +369,14 @@ console.log([1] instaceof Array);
 
 #### In-depth explanation of Mountain dataTable example 
 
-**Method: dataTable(data)**
+##### Method: dataTable(data)
 in this method, we are converting array of object data into **data** to be used
 by our created functions.
 
 *Headers*: the headers data are (as the name suggests, headers of the data table),
-which gets all the "name" property from the `mountain objects`.
+
+which gets all the "name" property from the `mountain objects` and maps into UnderLineCell objects
+which has **inner** property of **TextCell object** containg the headers of the data.
 
 ``` JSON
 headers: [
@@ -403,3 +405,52 @@ headers: [
     }
 ]
 ```
+**The body of the dataTable becomes:**
+
+The mountain data (array of objects) gets mapped into arrays of *TextCell Objects*.
+
+``` json
+[[{"text":["Kilimanjaro"]},{"text":["5895"]},{"text":["Tanzania"]}],[{"text":["Everest"]},{"text":["8848"]},{"text":["Nepal"]}],[{"text":["Mount Fuji"]},{"text":["3776"]},{"text":["Japan"]}],[{"text":["Mont Blanc"]},{"text":["4808"]},{"text":["Italy/France"]}],[{"text":["Vaalserberg"]},{"text":["323"]},{"text":["Netherlands"]}],[{"text":["Denali"]},{"text":["6168"]},{"text":["United States"]}],[{"text":["Popocatepetl"]},{"text":["5465"]},{"text":["Mexico"]}]]
+```
+
+Two Arrays are **concatnated** to create array of objects...
+
+##### Method: drawTable
+
+*Step 1: the row of data gets mapped with drawRow*
+
+**drawRow(row, rowNum)**
+
+*blocks:*
+each row gets mapped into a variable with block, example:
+*headers, and body objects have different draw methods*
+``` json
+header: 
+[ [ 'name        ', '------------'  ],
+  [ 'height', '------'  ],
+  [ 'country      ', '-------------'  ]  ]
+
++
+
+body: 
+[ [ 'Kilimanjaro '  ], [ '5895  '  ], [ 'Tanzania     '  ]  ]
+...
+```
+**NOTE: header + body are same arrays**
+
+*blocks[0].map(..)* - drawLine
+
+using block[0] as number of lines to apply, then map array into 
+`drawLine`. drawLine essentially joins all the strings vertically 
+into one string.
+
+``` json
+[ 'name         height country      ',
+  '------------ ------ -------------'  ]
+
+....
+
+[ 'Kilimanjaro  5895   Tanzania     '  ]
+```
+
+The rows gets map into these arrays with strings and then they get joined with line breaks.
