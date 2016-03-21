@@ -264,4 +264,149 @@ so they can create a string that contains more useful information than
 The code is written to work with objects that have a certain interface.
 (in this case, toString method)
 
+## Getters & Setters
 
+Javascript provides a technique that allows us to specify properties that,
+from the outside, look like properties but secretly have methods associated with them.
+
+``` javascript  
+var piles = {
+    elements: ["eggshell", "orange peel", "worm"], 
+    get height() {
+        return this.element.length;
+    }, 
+    set height(value) {
+        console.log("Ignoring attempt to set height to", value);
+    }
+}
+
+console.log(pile.height);
+// => 3
+
+pile.height = 100;
+
+// => Ignoring attempt to set height to 100
+```
+
+For object literals, the *get* and *set* notation for properties allows you to specify
+a function to be run when property is read or written.
+
+you can add such a property to an existing object, for example a prototype, using
+*Object.defineProperty* function.
+
+``` javascript
+Object.defineProperty(TextCell.prototype, "heightProp", {
+    get: function() { return this.text.length }
+})
+
+var cell = new TextCell("no\way");
+
+console.log(cell.heightProp);
+// => 2
+
+cell.heightProp = 2;
+console.log(cell.heightProp);
+// => 2
+```
+
+a similar *set* property be used in *defineProperty* to specify setter method.
+When no setter is defined, the writing to the property is ignored.
+
+## Inheritance
+
+Creating a cell type that is like TextCell, but rather than padding the lines on the right side,
+it pads them on the left.
+
+``` javascript
+function RTextCell(text) {
+    TextCell.call(this, text);
+}
+
+RTextCell.prototype = Object.create(TextCell.prototype);
+RTextCell.prototype.draw = function(width, height) {
+    var result = [];
+    for(var i = 0; i < height; i++) {
+        var line = this.text[i] || "";
+        result.push(repeat(" ", width - line.height) + line);
+    }
+    return result;
+}
+```
+
+**Note:** 
+
+the **RTextcell.prototype** essentially is linked to the new object created which internally
+is linked to the **TextCell.prototype**.
+
+Any methods **RTextCell.prototype** has calls and is available via **TextCell.prototype**, it will
+be delegated up the prototype chain. 
+
+An RTextCell is basically a TextCell except the draw method contains a different function.
+
+All of TextCell prototype properties are available to RTextCell. Additionally, we can override
+some of the properties by adding them to our new prototype.
+
+## Instanceof operator
+
+Javascript provides an operator to check the derivation from a specific *constructor*.
+
+The binary operator is called : **instanceof**
+
+``` javascript
+
+console.log(new RTextCell("A") instaceof RTextCell);
+// true
+
+console.log(new RTextCell("A") instaceof TextCell);
+// true
+
+console.log(new TextCell("A") instaceof RTextCell);
+// false 
+
+console.log([1] instaceof Array);
+// true 
+```
+
+#### In-depth explanation of Mountain dataTable example 
+
+**Method: dataTable(data)**
+in this method, we are converting array of object data into **data** to be used
+by our created functions.
+
+*Headers*: the headers data are (as the name suggests, headers of the data table),
+which gets all the "name" property from the `mountain objects`.
+
+``` JSON
+headers: [
+    {
+        "inner": {
+            "text": [
+                "name"
+
+            ]
+
+        }
+
+    },
+    {
+        "inner": {
+            "text": [
+                "height"
+
+            ]
+
+        }
+
+    },
+    {
+        "inner": {
+            "text": [
+                "country"
+
+            ]
+
+        }
+
+    }
+]
+```

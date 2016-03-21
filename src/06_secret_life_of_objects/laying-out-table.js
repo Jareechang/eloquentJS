@@ -31,7 +31,8 @@ function colWidths(rows) {
 function drawTable(rows) {
     var heights = rowHeights(rows);
     var widths = colWidths(rows);
-
+    
+    // Map transform array - array of strings into  
     function drawLine(blocks, lineNo) {
         return blocks.map((block) => {
             return block[lineNo];
@@ -39,15 +40,19 @@ function drawTable(rows) {
     }
 
     function drawRow(row, rowNum) {
+        // Call the draw method on the cell, with specified calculated minimum height and width
         var blocks = row.map((cell,colNum) => {
+            // Returns Array of strings  ex ['name', '------------' ]
             return cell.draw(widths[colNum], heights[rowNum])
         })
-        
+       
+       // Making use of first array as number of iterations through each sub-array 
+       // Join on line break to add spaces 
         return blocks[0].map((_, lineNo) => {
             return drawLine(blocks,lineNo);
         }).join('\n');
     }
-
+    // map - transform data into array of strings to be draw with line break 
     return rows.map(drawRow).join('\n');
 }
 
@@ -131,6 +136,7 @@ UnderLineCell.prototype.minHeight = function() {
 }
 
 UnderLineCell.prototype.draw = function(width,height) {
+    console.log(this.inner.draw(width, height - 1).concat([repeat("-", width)]));
     return this.inner.draw(width, height - 1)
         .concat([repeat("-", width)])
 }
@@ -147,5 +153,7 @@ function dataTable(data) {
     })
     return [headers].concat(body);
 }
+
+//console.log(dataTable(MOUNTAINS));
 
 console.log(drawTable(dataTable(MOUNTAINS)));
