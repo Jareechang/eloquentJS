@@ -4,10 +4,9 @@ import { range } from '../04_data/sum_range.js'
 
 function logFive(object) {
     // Ensure iteration does not exceed number of items in array
-    var exceedsFiveLogs = object.index > 5;
     while(object.hasIteration()) {
-        if(exceedsFiveLogs) {
-            return;
+        if(object.index > 5) {
+            break;
         }
         console.log(object.next());
         object.increment();
@@ -43,6 +42,7 @@ function RangeSeq(min, max) {
     this.index = 0;
 }
 
+// Inheriting the functionality from ArraySeq
 RangeSeq.prototype = Object.create(ArraySeq.prototype);
 
 logFive(new RangeSeq(100, 1000));
