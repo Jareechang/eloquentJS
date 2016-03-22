@@ -26,11 +26,13 @@ function range(start, end, step){
     return arr;
 }
 
+export { range  };
+
 // Range
 
-console.log(range(1,10));
-console.log(range(5,2,-1));
+//console.log(range(1,10));
+//console.log(range(5,2,-1));
 
 // Sum 
 
-console.log(sum(range(1,10)));
+//console.log(sum(range(1,10)));
