@@ -1,5 +1,5 @@
 function Grid(width, height) {
-    this.space = new Array(width * array);
+    this.space = new Array(width * height);
     this.width = width;
     this.height = height;
 }
