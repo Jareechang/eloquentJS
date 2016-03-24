@@ -1,7 +1,9 @@
 import { Vector } from './vector.js';
+import { directions } from './directons.js';
 import { Grid } from './grid.js';
 import { BouncingCritter } from './critter.js';
-import { plan } from './plan.js'
+import { plan } from './plan.js';
+import { View } from './view.js';
 
 function elementFromChar(legend, ch) {
     if(ch == " ") 
@@ -9,7 +11,7 @@ function elementFromChar(legend, ch) {
     var element = new legend[ch]();
     element.originChar = ch;
     return element;
-}
+};
 
 function World(map, legend) {
     var grid = new Grid(map[0].length, map.length);
@@ -29,7 +31,7 @@ function charFromElement(element) {
         return " ";
     else 
         return element.originChar;
-}
+};
 
 World.prototype.toString = function() {
     var output = "";
@@ -41,13 +43,53 @@ World.prototype.toString = function() {
         output += "\n";
     }
     return output;
-}
+};
+
+World.prototype.turn = function() {
+    // Keep track of which critters moved
+    var acted = [];
+    this.grid.forEach(function(critter,vector){
+        if(critter.act && acted.indexOf(critter) == -1) {
+           acted.push(critter);
+           this.letAct(critter,vector);
+        }
+    },this)
+};
+
+World.prototype.letAct = function(critter,vector) {
+    var action = critter.act(new View(this, vector));
+    if( action && action.type == 'move' ) {
+        var dest = this.checkDestination(action,vector);
+        if(dest && this.grid.get(dest) == null) {
+            this.grid.set(vector, null);
+            this.grid.set(dest,critter);
+        }
+    }
+};
+
+World.prototype.checkDestination = function(action,vector) {
+    if(directions.hasOwnProperty(action.direction)) {
+        var dest = vector.plus(directions[action.direction]);
+        if(this.grid.isInside(dest))
+            return dest;
+    }
+
+};
 
 function Wall() {} // has no functionality - only takes up space
 
 var world = new World(plan, {"#": Wall,
                       "o": BouncingCritter});
 
-console.log(world.toString());
+//console.log(world.toString());
+
+//for (var i = 0; i < 5; i++) {
+  //world.turn();
+  //console.log(world.toString());
+
+//}
+
+//animateWorld(world);
+
 
 
