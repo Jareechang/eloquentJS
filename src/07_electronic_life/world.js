@@ -91,5 +91,4 @@ var world = new World(plan, {"#": Wall,
 
 //animateWorld(world);
 
-
-
+export { World };

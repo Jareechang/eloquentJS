@@ -1,0 +1,77 @@
+var Break = { toString: function(){ return "Break"; } };
+
+function show(result) {
+    console.log(result);
+}
+
+function forEach(array, action) {
+    try {
+        for(var i = 0; i < array.length; i++) {
+            action(array[i]);
+        }
+    }
+    catch(exception) {
+        if(exception != Break) 
+            throw exception;
+    }
+}
+
+var op = {
+    "+": function(a, b){return a + b;},
+    "==": function(a, b){return a == b;},
+    "===": function(a, b){return a === b;},
+    "!": function(a){return !a;},
+    "!=": function(a,b){return a != b;}
+};
+
+function asArray(quasiArray, start) {
+    var result = [];
+    for (var i = (start || 0); i < quasiArray.length; i++){
+        result.push(quasiArray[i]);
+    }
+    return result;
+};
+
+function partial(func) {
+    var fixedArgs = asArray(arguments, 1);
+    return function(){
+        return func.apply(null, fixedArgs.concat(asArray(arguments)));
+    };
+};
+
+function any(test, array) {
+    for (var i = 0; i < array.length; i++) {
+        var found = test(array[i]);
+        if (found)
+            return found;
+    }
+    return false;
+}
+
+function member(array, value) {
+    return any(partial(op["==="], value), array);
+}
+
+// test - member 
+//console.log(member(["Fear", "Loathing"], "Fear"));
+
+function every(test, array) {
+    for (var i = 0; i < array.length; i++) {
+        var found = test(array[i]);
+        if (!found)
+            return found;
+    }
+    return true;
+}
+
+// Test - every 
+//show(every(partial(op["!="], 1), [1, 2, -1]));
+
+
+function flatten(arrays) {
+    var result = [];
+    forEach(arrays, function (array) {
+        forEach(array, function (element){result.push(element);});
+    });
+    return result;
+}
