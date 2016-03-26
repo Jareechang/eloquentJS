@@ -67,7 +67,6 @@ function every(test, array) {
 // Test - every 
 //show(every(partial(op["!="], 1), [1, 2, -1]));
 
-
 function flatten(arrays) {
     var result = [];
     forEach(arrays, function (array) {
@@ -75,3 +74,14 @@ function flatten(arrays) {
     });
     return result;
 }
+
+function filter(array,test) {
+    var result = [];
+    for(let item of array) {
+        if(test(item))
+            result.push(item);
+    }
+    return result;
+}
+
+//show(filter([1,2,3,4,5,6,7,8,8,8], x => x > 5));
