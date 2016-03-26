@@ -77,6 +77,14 @@ function flatten(arrays) {
     return result;
 }
 
+function map(transform, array) {
+    var result = [];
+    forEach(array, function(item){
+        result.push(transform(item));
+    })
+    return result;
+}
+
 function filter(test,array) {
     var result = [];
     forEach(array, function(item){
@@ -87,3 +95,6 @@ function filter(test,array) {
 }
 // Test - filter
 //show(filter(partial(op[">"], 5), [1,2,3,4,5,6,7,8,9]));
+
+// exporting methods
+export { filter, flatten, every, member, any, partial, asArray, forEach, map };

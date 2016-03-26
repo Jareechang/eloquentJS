@@ -56,4 +56,6 @@ function roadsFrom(place) {
         return found;
 }
 
+//show(roads);
+
 export { show, roads, makeRoad, makeRoads, roadsFrom };
