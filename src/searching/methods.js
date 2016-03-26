@@ -21,7 +21,9 @@ var op = {
     "==": function(a, b){return a == b;},
     "===": function(a, b){return a === b;},
     "!": function(a){return !a;},
-    "!=": function(a,b){return a != b;}
+    "!=": function(a,b){return a != b;},
+    ">": function(a,b){return b > a ;},
+    "<": function(a,b){return b < a;}
 };
 
 function asArray(quasiArray, start) {
@@ -75,13 +77,13 @@ function flatten(arrays) {
     return result;
 }
 
-function filter(array,test) {
+function filter(test,array) {
     var result = [];
-    for(let item of array) {
+    forEach(array, function(item){
         if(test(item))
             result.push(item);
-    }
+    })
     return result;
 }
-
-//show(filter([1,2,3,4,5,6,7,8,8,8], x => x > 5));
+// Test - filter
+//show(filter(partial(op[">"], 5), [1,2,3,4,5,6,7,8,9]));
