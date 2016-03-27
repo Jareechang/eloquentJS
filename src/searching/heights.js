@@ -25,4 +25,12 @@ var heightAt = function(){
         };
 }();
 
+// Weight distance to adjust for elevation for travel
+function weightedDistance(pointA, PointB) {
+    var heightDifference = heightAt(PointA) - heightAt(PointB);
+    var climbFactor = (heightDifference < 0 ? 1 : 2);
+    var flatDistance = (pointA.x == pointB.x || pointA.y == pointB.y ? 100 : 141);
+    return flatDistance + climbFactor * Math.abs(heightDifference);
+}
+
 export { heightAt };
