@@ -17,7 +17,8 @@ function possibleRoutes(from,to) {
     return findRoutes({places: [from], length: 0});
 }
 
-show(possibleRoutes("Point Teohotepapapa", "Point Kiukiu").length);
-show(possibleRoutes("Point Teohotepapapa", "Point Kiukiu"));
-show(possibleRoutes("Hanapaoa", "Mt Ootua"));
+//show(possibleRoutes("Point Teohotepapapa", "Point Kiukiu").length);
+//show(possibleRoutes("Point Teohotepapapa", "Point Kiukiu"));
+//show(possibleRoutes("Hanapaoa", "Mt Ootua"));
 
+export { possibleRoutes };
