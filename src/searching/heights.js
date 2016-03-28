@@ -21,7 +21,6 @@ var heightAt = function(){
         [311,337,358,376,330,341,342,374,411,408,421,382,271,311,246,166,132,116,108, 72]];
         return function(point) {
             return heights[point.y][point.x];
-
         };
 }();
 
@@ -33,4 +32,5 @@ function weightedDistance(pointA, PointB) {
     return flatDistance + climbFactor * Math.abs(heightDifference);
 }
 
-export { heightAt };
+export { heightAt, weightedDistance };
+
