@@ -13,6 +13,7 @@ var box = {
 function withBoxUnlocked(body) {
     if(box.locked)
         box.unlock();
+
     try {
        return body();
     }
